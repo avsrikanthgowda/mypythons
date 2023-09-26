@@ -139,3 +139,171 @@ def middleLC(myList):
 # print(f"middle(BF): {middle([1,  4])}")
 # print(f"middle(BF): {middle([1,  4, 3])}")
 
+
+# Given 2D list calculate the sum of diagonal elements.
+# Example
+#     myList2D= [[1,2,3],[4,5,6],[7,8,9]] 
+#     diagonal_sum(myList2D) # 15
+
+# BF way SC= O(1), TC=O(n)
+def diagonal_sum(myList2D):
+    sum = 0
+    index = 0
+    for subList in myList2D:
+        sum += subList[index]
+        index += 1
+    return sum
+
+# print(f"diagonal_sum : {diagonal_sum([[1,2,3],[4,5,6],[7,8,9]] )}")
+# print(f"diagonal_sum : {diagonal_sum([[2,2,3],[4,5,6],[7,8,11]] )}")
+# print(f"diagonal_sum : {diagonal_sum([[1,2],[4,5]] )}")
+# print(f"diagonal_sum : {diagonal_sum([[1,2,3,4],[4,5,6, 5],[7,8,9,12],[12,23,24,23]] )}")
+
+# Given a list, write a function to get first, second best scores from the list.
+# List may contain duplicates.
+# Example
+#     myList = [84,85,86,87,85,90,85,83,23,45,84,1,2,0]
+#     first_second(myList) # 90 87
+
+#BF TC: O(n), SC:O(1)
+def first_second(myList):
+    if len(myList) < 1:
+        return [0,0]
+
+    first = myList[0]
+    second = myList[0]
+
+    for num in myList:
+        if num > first:
+            second = first
+            first = num
+        elif num > second:
+            second = num
+    return [first, second]
+
+# print(f"first_second : {first_second([84,85,86,87,85,90,85,83,23,45,84,1,2,0])}")
+# print(f"first_second : {first_second([])}")
+# print(f"first_second : {first_second([100,100,100,200,100,100,100])}")
+# print(f"first_second : {first_second([10000])}")
+
+# Write a function to remove the duplicate numbers on given integer array/list.
+# Example
+#     remove_duplicates([1, 1, 2, 2, 3, 4, 5])
+#     Output : [1, 2, 3, 4, 5]
+
+# BF way TC=O(n), SC=O(n)
+def remove_duplicates(myList):
+    if len(myList) <= 1:
+        return myList
+
+    seen = {}
+    newList = []
+    for num in myList:
+        if num not in seen:
+            newList.append(num)
+            seen[num] = num
+    return newList
+
+# print(f"remove_duplicates : {remove_duplicates([1, 1, 2, 2, 3, 4, 5])}")
+# print(f"remove_duplicates : {remove_duplicates([1])}")
+# print(f"remove_duplicates : {remove_duplicates([])}")
+# print(f"remove_duplicates : {remove_duplicates([1, 1])}")
+# print(f"remove_duplicates : {remove_duplicates([1, 1, 2, 2, 3, 4, 5,12,-11,23,-11,23,22,25])}")
+
+# Pairs
+# Write a function to find all pairs of an integer array whose sum is equal to a given number. Do not consider commutative pairs.
+# Example
+#     pair_sum([2, 4, 3, 5, 6, -2, 4, 7, 8, 9],7)
+#     Output : ['2+5', '4+3', '3+4', '-2+9']
+# Note:
+# 4+3 comes from second and third elements from the main list.
+# 3+4 comes from third and seventh elements from the main list.
+
+#BF way TC: O(n2), SC: O(n)
+def pair_sum(myList, target):
+    if len(myList) < 1:
+        return myList
+
+    outputList = []
+    for i in range(len(myList)):
+        for j in range(i,len(myList)):
+            if myList[i] + myList[j] == target:
+                outputList.append(str(myList[i])+'+'+str(myList[j]))
+    
+    return outputList
+
+# print(f"pair_sum : {pair_sum([2, 4, 3, 5, 6, -2, 4, 7, 8, 9],7)}")
+
+# Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+# Example :
+#     Input: nums = [1,2,3,1]
+#     Output: true
+# Hint: Use sets
+
+# TC: O(n), SC:O(n)
+def checkDuplicates(myList):
+    if len(myList) < 1:
+        return False
+
+    mySet = set()
+    for nums in myList:
+        if nums in mySet:
+            return True
+        mySet.add(nums)
+
+    return False
+
+# print(f"checkDuplicates : {checkDuplicates([1,2,3,1])}")
+# print(f"checkDuplicates : {checkDuplicates([1,2,3])}")
+# print(f"checkDuplicates : {checkDuplicates([1,2,3,3])}")
+# print(f"checkDuplicates : {checkDuplicates([1,2,3,3,1])}")
+# print(f"checkDuplicates : {checkDuplicates([])}")
+# print(f"checkDuplicates : {checkDuplicates([34,34])}")
+# print(f"checkDuplicates : {checkDuplicates([98])}")
+
+# permuatation of two list or not
+
+def permutation(list1, list2):
+    if len(list1) != len(list2):
+        return False
+    
+    list1.sort()
+    list2.sort()
+
+    if list1 == list2:
+        return True
+    else:
+        return False
+    
+# print(f"permutation : {permutation([1,2,3],[1,3,2])}")
+# print(f"permutation : {permutation([],[1,3,2])}")
+# print(f"permutation : {permutation([1,2,3,4],[1,3,2,5])}")
+# print(f"permutation : {permutation(['a','b','c'],['c','a','b'])}")
+
+# You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
+# You have to rotate the image in-place, which means you have to modify the input 2D matrix directly.
+# DO NOT allocate another 2D matrix and do the rotation.
+# Example:
+# for greater understanding see image shown in udemy
+#     Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+#     Output: [[7,4,1],[8,5,2],[9,6,3]]
+
+#BF way
+def rotateMatrixInplace(matrix):
+    if len(matrix) <= 1:
+        return matrix
+    
+    n = len(matrix)
+    
+    for i in range(n):
+        for j in range(i, n):
+            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+
+    for row in matrix:
+        row.reverse()
+
+    return matrix
+
+# print(f"rotateMatrixInplace: {rotateMatrixInplace([[1,2,3],[4,5,6],[7,8,9]])}")
+# print(f"rotateMatrixInplace: {rotateMatrixInplace([[1,2,33],[4,5,66],[7,8,99]])}")
+# print(f"rotateMatrixInplace: {rotateMatrixInplace([[1,2,33]])}")
